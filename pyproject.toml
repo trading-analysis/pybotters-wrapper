@@ -6,9 +6,9 @@ authors = ["ko0hi <ko0hi.0304@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<4.0"
-pybotters = "0.15.0"
+pybotters = "0.16.0"
 numpy = "^1.23.3"
-pandas = "^1.5.0"
+pandas = "^2.0.0"
 loguru = "^0.6.0"
 requests = "^2.28.1"
 
