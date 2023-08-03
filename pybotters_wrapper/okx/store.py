@@ -71,7 +71,7 @@ class OKXDataStoreWrapper(OKXMixin, DataStoreWrapper[OKXDataStore]):
     _POSITION_STORE = (OKXPositionStore, "positions")
 
 
-class OKXTESTDataStoreWrapper(OKXTESTMixin, OKXDataStoreWrapper):
+class OKXTESTDataStoreWrapper(OKXTESTMixin, DataStoreWrapper[OKXDataStore]):
     _WRAP_STORE = OKXDataStore
     _WEBSOCKET_CHANNELS = OKXTESTWebsocketChannels
     _TICKER_STORE = (OKXTickerStore, "tickers")

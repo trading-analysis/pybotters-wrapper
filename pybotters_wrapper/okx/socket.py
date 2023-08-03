@@ -33,7 +33,10 @@ class OKXWebsocketChannels(WebsocketChannels):
     def books(self, symbol: str) -> OKXWebsocketChannels:
         return self.subscribe("books", instId=symbol)
 
-    def positions(self, instType: str, **kwargs) -> OKXWebsocketChannels:
+    def order(self, instType: str, **kwargs) -> OKXWebsocketChannels:
+        return self.subscribe("orders", instType=instType, **kwargs)
+
+    def position(self, instType: str, **kwargs) -> OKXWebsocketChannels:
         return self.subscribe("positions", instType=instType, **kwargs)
 
 
