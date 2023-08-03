@@ -7,6 +7,7 @@ class OKXWebsocketChannels(WebsocketChannels):
     PUBLIC_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/public"
     PRIVATE_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/private"
     ENDPOINT = PUBLIC_ENDPOINT
+    INST_TYPE = "SWAP"
 
     def subscribe(self, channel: str, *args, **kwargs) -> OKXWebsocketChannels:
         return super().subscribe(channel, *args, **kwargs)
@@ -33,11 +34,15 @@ class OKXWebsocketChannels(WebsocketChannels):
     def books(self, symbol: str) -> OKXWebsocketChannels:
         return self.subscribe("books", instId=symbol)
 
-    def order(self, instType: str, **kwargs) -> OKXWebsocketChannels:
-        return self.subscribe("orders", instType=instType, **kwargs)
+    def order(self, symbol: str, **kwargs) -> OKXWebsocketChannels:
+        return self.subscribe(
+            "orders", symbol=symbol, instType=self.INST_TYPE, **kwargs
+        )
 
-    def position(self, instType: str, **kwargs) -> OKXWebsocketChannels:
-        return self.subscribe("positions", instType=instType, **kwargs)
+    def position(self, symbol: str, **kwargs) -> OKXWebsocketChannels:
+        return self.subscribe(
+            "positions", symbol=symbol, instType=self.INST_TYPE, **kwargs
+        )
 
 
 class OKXTESTWebsocketChannels(OKXWebsocketChannels):
