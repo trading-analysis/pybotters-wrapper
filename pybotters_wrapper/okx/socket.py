@@ -46,8 +46,8 @@ class OKXWebsocketChannels(WebsocketChannels):
 
 
 class OKXTESTWebsocketChannels(OKXWebsocketChannels):
-    PUBLIC_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/public?brokerId=9999"
-    PRIVATE_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/private?brokerId=9999"
+    PUBLIC_ENDPOINT = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
+    PRIVATE_ENDPOINT = "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999"
     INST_TYPE = "SWAP"
 
     def subscribe(self, channel: str, *args, **kwargs) -> OKXTESTWebsocketChannels:
