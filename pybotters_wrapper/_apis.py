@@ -33,6 +33,7 @@ EXCHANGE2BASEURL = {
     "kucoinspot": pbw.kucoin.KuCoinSpotAPI.BASE_URL,
     "kucoinfutures": pbw.kucoin.KuCoinFuturesAPI.BASE_URL,
     "okx": pbw.okx.OKXAPI.BASE_URL,
+    "okx_demo": pbw.okx.OKXTESTAPI.BASE_URL,
     "phemex": pbw.phemex.PhemexAPI.BASE_URL,
 }
 
@@ -52,6 +53,7 @@ EXCHANGE2STORE = {
     "kucoinspot": pbw.kucoin.KuCoinSpotDataStoreWrapper,
     "kucoinfutures": pbw.kucoin.KuCoinFuturesDataStoreWrapper,
     "okx": pbw.okx.OKXDataStoreWrapper,
+    "okx_demo": pbw.okx.OKXTESTDataStoreWrapper,
     "phemex": pbw.phemex.PhemexDataStoreWrapper,
 }
 
@@ -71,6 +73,7 @@ EXCHANGE2API: dict[str, Type[API]] = {
     "kucoinspot": pbw.kucoin.KuCoinSpotAPI,
     "kucoinfutures": pbw.kucoin.KuCoinFuturesAPI,
     "okx": pbw.okx.OKXAPI,
+    "okx_demo": pbw.okx.OKXAPI,
     "phemex": pbw.phemex.PhemexAPI,
 }
 
@@ -235,6 +238,10 @@ def create_okx_store(**kwargs) -> pbw.okx.OKXDataStoreWrapper:
     return create_store("okx", **kwargs)
 
 
+def create_okx_demo_store(**kwargs) -> pbw.okx.OKXTESTDataStoreWrapper:
+    return create_store("okx_demo", **kwargs)
+
+
 def create_phemex_store(**kwargs) -> pbw.phemex.PhemexDataStoreWrapper:
     return create_store("phemex", **kwargs)
 
@@ -317,34 +324,70 @@ def create_okx_api(client: pybotters.Client, **kwargs) -> pbw.okx.OKXAPI:
     return create_api("okx", client, **kwargs)
 
 
+def create_okx_demo_api(client: pybotters.Client, **kwargs) -> pbw.okx.OKXTESTAPI:
+    return create_api("okx_demo", client, **kwargs)
+
+
 def create_phemex_api(client: pybotters.Client, **kwargs) -> pbw.phemex.PhemexAPI:
     return create_api("phemex", client, **kwargs)
 
 
 def create_binancespot_store_and_api(
-    client: pybotters.Client, *, sandbox: bool = False, store_kwargs=None, api_kwargs=None
+    client: pybotters.Client,
+    *,
+    sandbox: bool = False,
+    store_kwargs=None,
+    api_kwargs=None,
 ) -> tuple[pbw.binance.BinanceSpotDataStoreWrapper, pbw.binance.BinanceSpotAPI]:
-    return create_store_and_api("binancespot", client, sandbox=sandbox, store_kwargs=store_kwargs, api_kwargs=api_kwargs)
+    return create_store_and_api(
+        "binancespot",
+        client,
+        sandbox=sandbox,
+        store_kwargs=store_kwargs,
+        api_kwargs=api_kwargs,
+    )
 
 
 def create_binanceusdsm_store_and_api(
-    client: pybotters.Client,  *, sandbox: bool = False, store_kwargs=None, api_kwargs=None
+    client: pybotters.Client,
+    *,
+    sandbox: bool = False,
+    store_kwargs=None,
+    api_kwargs=None,
 ) -> tuple[pbw.binance.BinanceUSDSMDataStoreWrapper, pbw.binance.BinanceUSDSMAPI]:
-    return create_store_and_api("binanceusdsm", client, sandbox=sandbox, store_kwargs=store_kwargs, api_kwargs=api_kwargs)
+    return create_store_and_api(
+        "binanceusdsm",
+        client,
+        sandbox=sandbox,
+        store_kwargs=store_kwargs,
+        api_kwargs=api_kwargs,
+    )
 
 
 def create_binanceusdsm_test_store_and_api(
-    client: pybotters.Client,  *, sandbox: bool = False, store_kwargs=None, api_kwargs=None
+    client: pybotters.Client,
+    *,
+    sandbox: bool = False,
+    store_kwargs=None,
+    api_kwargs=None,
 ) -> tuple[
     pbw.binance.BinanceUSDSMTestDataStoreWrapper, pbw.binance.BinanceUSDSMTESTAPI
 ]:
-    return create_store_and_api("binanceusdsm_test", client, sandbox=sandbox, store_kwargs=store_kwargs, api_kwargs=api_kwargs)
+    return create_store_and_api(
+        "binanceusdsm_test",
+        client,
+        sandbox=sandbox,
+        store_kwargs=store_kwargs,
+        api_kwargs=api_kwargs,
+    )
 
 
 def create_binancecoinm_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.binance.BinanceCoinMDataStoreWrapper, pbw.binance.BinanceCOINMAPI]:
-    return create_store_and_api("binancecoinm", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "binancecoinm", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_binancecoinm_test_store_and_api(
@@ -352,70 +395,102 @@ def create_binancecoinm_test_store_and_api(
 ) -> tuple[
     pbw.binance.BinanceCoinMTESTDataStoreWrapper, pbw.binance.BinanceCOINMTESTAPI
 ]:
-    return create_store_and_api("binancecoinm_test", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "binancecoinm_test", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_bitbank_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.bitbank.bitbankDataStoreWrapper, pbw.bitbank.bitbankAPI]:
-    return create_store_and_api("bitbank", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "bitbank", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_bitflyer_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.bitflyer.bitFlyerDataStoreWrapper, pbw.bitflyer.bitFlyerAPI]:
-    return create_store_and_api("bitflyer", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "bitflyer", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_bitget_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.bitget.BitgetDataStoreWrapper, pbw.bitget.BitgetAPI]:
-    return create_store_and_api("bitget", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "bitget", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_bybitusdt_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.bybit.BybitUSDTDataStoreWrapper, pbw.bybit.BybitUSDTAPI]:
-    return create_store_and_api("bybitusdt", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "bybitusdt", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_bybitinverse_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.bybit.BybitInverseDataStoreWrapper, pbw.bybit.BybitInverseAPI]:
-    return create_store_and_api("bybitinverse", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "bybitinverse", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_coincheck_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.coincheck.CoincheckDataStoreWrapper, pbw.coincheck.CoincheckAPI]:
-    return create_store_and_api("coincheck", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "coincheck", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_gmocoin_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.gmocoin.GMOCoinDataStoreWrapper, pbw.gmocoin.GMOCoinAPI]:
-    return create_store_and_api("gmocoin", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "gmocoin", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_kucoinspot_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.kucoin.KuCoinSpotDataStoreWrapper, pbw.kucoin.KuCoinSpotAPI]:
-    return create_store_and_api("kucoinspot", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "kucoinspot", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_kucoinfutures_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.kucoin.KuCoinFuturesDataStoreWrapper, pbw.kucoin.KuCoinFuturesAPI]:
-    return create_store_and_api("kucoinfutures", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "kucoinfutures", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_okx_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.okx.OKXDataStoreWrapper, pbw.okx.OKXAPI]:
-    return create_store_and_api("okx", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "okx", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
+
+
+def create_okx_demo_store_and_api(
+    client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
+) -> tuple[pbw.okx.OKXTESTDataStoreWrapper, pbw.okx.OKXTESTAPI]:
+    return create_store_and_api(
+        "okx_demo", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
 
 
 def create_phemex_store_and_api(
     client: pybotters.Client, *, sandbox=False, store_kwargs=None, api_kwargs=None
 ) -> tuple[pbw.phemex.PhemexDataStoreWrapper, pbw.phemex.PhemexAPI]:
-    return create_store_and_api("phemex", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None)
+    return create_store_and_api(
+        "phemex", client, sandbox=sandbox, store_kwargs=None, api_kwargs=None
+    )
