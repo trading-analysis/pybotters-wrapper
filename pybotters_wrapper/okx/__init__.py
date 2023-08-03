@@ -1,4 +1,4 @@
-from .api import OKXAPI. OKXTESTAPI
+from .api import OKXAPI, OKXTESTAPI
 from .socket import OKXTESTWebsocketChannels, OKXWebsocketChannels
 from .store import OKXDataStoreWrapper, OKXTESTDataStoreWrapper
 
