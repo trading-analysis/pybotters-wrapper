@@ -73,7 +73,7 @@ EXCHANGE2API: dict[str, Type[API]] = {
     "kucoinspot": pbw.kucoin.KuCoinSpotAPI,
     "kucoinfutures": pbw.kucoin.KuCoinFuturesAPI,
     "okx": pbw.okx.OKXAPI,
-    "okx_demo": pbw.okx.OKXAPI,
+    "okx_demo": pbw.okx.OKXTESTAPI,
     "phemex": pbw.phemex.PhemexAPI,
 }
 
