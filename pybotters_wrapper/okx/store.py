@@ -68,6 +68,7 @@ class OKXDataStoreWrapper(OKXMixin, DataStoreWrapper[OKXDataStore]):
     _TICKER_STORE = (OKXTickerStore, "tickers")
     _TRADES_STORE = (OKXTradesStore, "trades")
     _ORDERBOOK_STORE = (OKXOrderbookStore, "books")
+    _POSITION_STORE = (OKXPositionStore, "positions")
 
 
 class OKXTESTDataStoreWrapper(OKXTESTMixin, OKXDataStoreWrapper):
@@ -76,3 +77,4 @@ class OKXTESTDataStoreWrapper(OKXTESTMixin, OKXDataStoreWrapper):
     _TICKER_STORE = (OKXTickerStore, "tickers")
     _TRADES_STORE = (OKXTradesStore, "trades")
     _ORDERBOOK_STORE = (OKXOrderbookStore, "books")
+    _POSITION_STORE = (OKXPositionStore, "positions")
