@@ -6,6 +6,7 @@ from pybotters.models.okx import OKXDataStore
 from pybotters_wrapper.core import (
     DataStoreWrapper,
     OrderbookStore,
+    PositionStore,
     TickerStore,
     TradesStore,
 )
@@ -43,6 +44,21 @@ class OKXOrderbookStore(OrderbookStore):
             "SELL" if data["side"] == "asks" else "BUY",
             float(data["px"]),
             float(data["sz"]),
+        )
+
+
+class OKXPositionStore(PositionStore):
+    def _normalize(
+        self, store: "DataStore", operation: str, source: dict, data: dict
+    ) -> "PositionItem":
+        size = float(data["pos"])
+        side = "BUY" if data["posSide"] == "long" else "SELL"
+
+        return self._itemize(
+            data["ccy"].upper(),
+            side,
+            float(data["avgPx"]),
+            abs(size),
         )
 
 

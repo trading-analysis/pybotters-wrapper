@@ -33,6 +33,9 @@ class OKXWebsocketChannels(WebsocketChannels):
     def books(self, symbol: str) -> OKXWebsocketChannels:
         return self.subscribe("books", instId=symbol)
 
+    def positions(self, instType: str, **kwargs) -> OKXWebsocketChannels:
+        return self.subscribe("positions", instType=instType, **kwargs)
+
 
 class OKXTESTWebsocketChannels(OKXWebsocketChannels):
     PUBLIC_ENDPOINT = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
