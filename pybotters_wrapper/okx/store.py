@@ -5,21 +5,25 @@ from pybotters.models.okx import OKXDataStore
 
 from pybotters_wrapper.core import (
     DataStoreWrapper,
+    OrderbookStore,
     TickerStore,
     TradesStore,
-    OrderbookStore,
 )
-from pybotters_wrapper.okx import OKXWebsocketChannels
-from pybotters_wrapper.utils.mixins import OKXMixin
+from pybotters_wrapper.okx import OKXTESTWebsocketChannels, OKXWebsocketChannels
+from pybotters_wrapper.utils.mixins import OKXMixin, OKXTESTMixin
 
 
 class OKXTickerStore(TickerStore):
-    def _normalize(self, store: "DataStore", operation: str, source: dict, data: dict) -> "TickerItem":
+    def _normalize(
+        self, store: "DataStore", operation: str, source: dict, data: dict
+    ) -> "TickerItem":
         return self._itemize(data["instId"], float(data["last"]))
 
 
 class OKXTradesStore(TradesStore):
-    def _normalize(self, store: "DataStore", operation: str, source: dict, data: dict) -> "TradesItem":
+    def _normalize(
+        self, store: "DataStore", operation: str, source: dict, data: dict
+    ) -> "TradesItem":
         return self._itemize(
             data["tradeId"],
             data["instId"],
@@ -31,12 +35,14 @@ class OKXTradesStore(TradesStore):
 
 
 class OKXOrderbookStore(OrderbookStore):
-    def _normalize(self, store: "DataStore", operation: str, source: dict, data: dict) -> "OrderbookItem":
+    def _normalize(
+        self, store: "DataStore", operation: str, source: dict, data: dict
+    ) -> "OrderbookItem":
         return self._itemize(
             data["instId"],
             "SELL" if data["side"] == "asks" else "BUY",
             float(data["px"]),
-            float(data["sz"])
+            float(data["sz"]),
         )
 
 
@@ -46,3 +52,7 @@ class OKXDataStoreWrapper(OKXMixin, DataStoreWrapper[OKXDataStore]):
     _TICKER_STORE = (OKXTickerStore, "tickers")
     _TRADES_STORE = (OKXTradesStore, "trades")
     _ORDERBOOK_STORE = (OKXOrderbookStore, "books")
+
+
+class OKXTESTDataStoreWrapper(OKXTESTMixin, OKXDataStoreWrapper):
+    _WEBSOCKET_CHANNELS = OKXTESTWebsocketChannels

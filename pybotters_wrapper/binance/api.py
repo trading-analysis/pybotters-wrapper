@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 import aiohttp
 import requests
@@ -11,16 +11,16 @@ if TYPE_CHECKING:
 
 from pybotters_wrapper.core import API
 from pybotters_wrapper.core.api import (
-    FetchTickerResponse,
     FetchOrderbookResponse,
     FetchOrdersResponse,
     FetchPositionsResponse,
+    FetchTickerResponse,
 )
 from pybotters_wrapper.core.store import (
-    TickerItem,
     OrderbookItem,
     OrderItem,
     PositionItem,
+    TickerItem,
 )
 from pybotters_wrapper.utils.mixins import (
     BinanceCOINMMixin,

@@ -31,9 +31,7 @@ class ExchangeMixin:
             self._PRICE_PRECISIONS[self.exchange] = {}
             self._SIZE_PRECISIONS[self.exchange] = {}
 
-    def format_precision(
-        self, symbol: str, value: float, price_or_size: str
-    ) -> str:
+    def format_precision(self, symbol: str, value: float, price_or_size: str) -> str:
         precisions = self._get_precision_resource(price_or_size)
         precision = self._lookup_precision(symbol, precisions)
         return self._format_by_precision(value, precision)
@@ -98,12 +96,15 @@ class _BinanceExchangeMixin(ExchangeMixin):
         for s in data["symbols"]:
             symbol = s["symbol"]
             tick_size = eval(
-                [f for f in s['filters'] if
-                 f['filterType'] == 'PRICE_FILTER'][0]['tickSize']
+                [f for f in s["filters"] if f["filterType"] == "PRICE_FILTER"][0][
+                    "tickSize"
+                ]
             )
             price_precision = int(math.log10(float(tick_size)) * -1)
             step_size = eval(
-                [f for f in s['filters'] if f['filterType'] == 'LOT_SIZE'][0]['stepSize']
+                [f for f in s["filters"] if f["filterType"] == "LOT_SIZE"][0][
+                    "stepSize"
+                ]
             )
             size_precision = int(math.log10(step_size) * -1)
             price_precisions[symbol] = price_precision
@@ -114,7 +115,9 @@ class _BinanceExchangeMixin(ExchangeMixin):
         assert self._EXCHANGE_INFO_ENDPOINT is not None
         resp = requests.get(self._EXCHANGE_INFO_ENDPOINT)
         if resp.status_code != 200:
-            msg = f"Failed to fetch binance exchange info: {self._EXCHANGE_INFO_ENDPOINT}"
+            msg = (
+                f"Failed to fetch binance exchange info: {self._EXCHANGE_INFO_ENDPOINT}"
+            )
             logger.error(msg)
             raise RuntimeError(msg)
         return resp
@@ -208,6 +211,10 @@ class KuCoinFuturesMixin(ExchangeMixin):
 
 class OKXMixin(ExchangeMixin):
     _EXCHANGE_NAME = "okx"
+
+
+class OKXTESTMixin(ExchangeMixin):
+    _EXCHANGE_NAME = "okx_demo"
 
 
 class PhemexMixin(ExchangeMixin):
