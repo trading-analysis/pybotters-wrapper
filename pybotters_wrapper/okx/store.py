@@ -55,4 +55,8 @@ class OKXDataStoreWrapper(OKXMixin, DataStoreWrapper[OKXDataStore]):
 
 
 class OKXTESTDataStoreWrapper(OKXTESTMixin, OKXDataStoreWrapper):
+    _WRAP_STORE = OKXDataStore
     _WEBSOCKET_CHANNELS = OKXTESTWebsocketChannels
+    _TICKER_STORE = (OKXTickerStore, "tickers")
+    _TRADES_STORE = (OKXTradesStore, "trades")
+    _ORDERBOOK_STORE = (OKXOrderbookStore, "books")
