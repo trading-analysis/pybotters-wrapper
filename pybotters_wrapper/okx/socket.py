@@ -46,8 +46,8 @@ class OKXWebsocketChannels(WebsocketChannels):
 
 
 class OKXTESTWebsocketChannels(WebsocketChannels):
-    PUBLIC_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/public"
-    PRIVATE_ENDPOINT = "wss://ws.okx.com:8443/ws/v5/private"
+    PUBLIC_ENDPOINT = "wss://wspap.okx.com:8443/ws/v5/public?brokerId=9999"
+    PRIVATE_ENDPOINT = "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999"
     ENDPOINT = PUBLIC_ENDPOINT
     INST_TYPE = "SWAP"
 
